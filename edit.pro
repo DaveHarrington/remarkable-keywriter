@@ -1,4 +1,5 @@
 QT += quick
+QT += network
 CONFIG += c++11
 
 # The following define makes your compiler emit warnings if you use
@@ -13,20 +14,20 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += main.cpp sundown/src/autolink.c sundown/src/buffer.c sundown/src/markdown.c sundown/src/stack.c sundown/html/houdini_href_e.c sundown/html/houdini_html_e.c sundown/html/html.c sundown/html/html_smartypants.c
+SOURCES += mytcpserver.cpp
 
 INCLUDEPATH += sundown/src
 INCLUDEPATH += sundown/html
 
 RESOURCES += qml.qrc
 
-# Additional import path used to resolve QML modules in Qt Creator's code model
+# Additional import path used to resolve QML modules in Qt Creators code model
 QML_IMPORT_PATH =
 
 # Additional import path used to resolve QML modules just for Qt Quick Designer
 QML_DESIGNER_IMPORT_PATH =
 
-linux-oe-g++ {
-    LIBS += -lqsgepaper
+linux-oe-g++ { LIBS += -lqsgepaper
 }
 
 # Default rules for deployment.
@@ -38,4 +39,6 @@ DISTFILES += \
     index.txt
 
 HEADERS += \
+    mytcpserver.h \
+    keyemitter.h \
     edit_utils.h
