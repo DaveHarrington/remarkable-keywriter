@@ -1,4 +1,7 @@
-FROM debian:stretch
+# Usage: docker build -o out .
+# edit binary will be in ./out/
+
+FROM debian:stretch AS build-stage
 
 SHELL ["/bin/bash", "-c"]
 
@@ -19,11 +22,12 @@ ENV GOPATH=/remarkable-keywriter/go
 ENV PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 RUN go get -u github.com/tcnksm/ghr
 RUN wget https://toltec-dev.org/thirdparty/lib/libqsgepaper-5.15-v2.a -O /opt/codex/rm11x/3.1.15/sysroots/cortexa7hf-neon-remarkable-linux-gnueabi/usr/lib/libqsgepaper.a
-ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
 COPY . /remarkable-keywriter/
 RUN git submodule init
 RUN git submodule update --remote
 RUN apt-get install -y vim
-CMD sleep 3650d
-# RUN source /opt/codex/rm11x/3.1.15/environment-setup-cortexa7hf-neon-remarkable-linux-gnueabi \
-# ls /opt/codex/ && ls /tmp/ && qmake edit.pro -spec linux-oe-g++ && ls /opt/codex/ && ls /tmp/ && /usr/bin/make
+RUN source /opt/codex/rm11x/3.1.15/environment-setup-cortexa7hf-neon-remarkable-linux-gnueabi \
+  qmake edit.pro -spec linux-oe-g++/ && /usr/bin/make
+
+FROM scratch AS export-stage
+COPY --from=build-stage /remarkable-keywriter/edit /
