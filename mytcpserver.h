@@ -2,6 +2,7 @@
 #define MYTCPSERVER_H
 #include <QtCore>
 #include <QtNetwork>
+#include <QKeyEvent>
 
 class MyTcpServer : public QObject
 {
@@ -10,7 +11,7 @@ public:
     explicit MyTcpServer(QObject *parent = 0);
 
 signals:
-    void dataReceived(QVariant text);
+    void dataReceived(QVariant keystring);
     //void dataReceived();
 
 private slots:

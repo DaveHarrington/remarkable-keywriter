@@ -39,7 +39,7 @@ Window {
             if (xhr.readyState === XMLHttpRequest.DONE) {
                 var response = xhr.responseText
                 isOmni = false
-                mode = 1
+                mode = 0
                 currentFile = name
                 doc = response
 
@@ -189,7 +189,7 @@ Window {
                             anchors.bottom: parent.bottom
                             anchors.bottomMargin: 4
                             color: "black"
-                            height: 2
+                            height: 4
                             width: parent.width
                         }
                     }
@@ -204,8 +204,6 @@ Window {
                 }
 
                 Keys.onPressed: {
-                    console.log("TE: key down: "  + Qt.Key_K + " " + event.key);
-                    console.log("TE: blah: " + isOmni + " " + ctrlPressed + " " + mode);
                     switch(event.key){
                         case Qt.Key_Down:
                         case Qt.Key_Left:
@@ -224,14 +222,12 @@ Window {
                             query.cursorPosition += 100
                             break
                         default:
-                            console.log("TE kd: handleKeyDown");
                             handleKeyDown(event)
                             break
                     }
                 }
 
                 Keys.onReleased: {
-                    console.log("TE: key up: "  + event.key);
                     handleKeyUp(event)
                     handleKey(event)
                 }

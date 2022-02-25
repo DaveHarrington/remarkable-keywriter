@@ -14,7 +14,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += main.cpp sundown/src/autolink.c sundown/src/buffer.c sundown/src/markdown.c sundown/src/stack.c sundown/html/houdini_href_e.c sundown/html/houdini_html_e.c sundown/html/html.c sundown/html/html_smartypants.c
-SOURCES += mytcpserver.cpp
+SOURCES += mytcpserver.cpp keyemitter.cpp
 
 INCLUDEPATH += sundown/src
 INCLUDEPATH += sundown/html

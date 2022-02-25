@@ -5,20 +5,23 @@
 #include <QGuiApplication>
 #include <QKeyEvent>
 #include <QtQuick>
+
+struct keyobj {
+	Qt::Key key;
+	Qt::KeyboardModifier modifier;
+	QString repr;
+} ;
+
 class KeyEmitter : public QObject
 {
     Q_OBJECT
 public:
-    KeyEmitter(QObject* parent=nullptr) : QObject(parent) {}
+    explicit KeyEmitter(QObject* parent = 0);
 public slots:
-    void keyPressed(QVariant _) {
-        Qt::Key k = Qt::Key_K;
-        qDebug() << "In keyemitter: " << k;
-        QQuickItem *r = qobject_cast<QQuickItem *>(QGuiApplication::focusObject());
-        QKeyEvent keyPressEvent = QKeyEvent(QEvent::Type::KeyPress, (Qt::Key)k, Qt::NoModifier, QKeySequence(k).toString());
-        QCoreApplication::sendEvent(r, &keyPressEvent);
-        QKeyEvent keyReleaseEvent = QKeyEvent(QEvent::Type::KeyRelease, (Qt::Key)k, Qt::NoModifier, QKeySequence(k).toString());
-        QCoreApplication::sendEvent(r, &keyReleaseEvent);
-    }
+    void keyPressed(QVariant keystring);
+private:
+	void initKeyMap();
+
+	QMap<QString, keyobj> keymap;
 };
 #endif // KEYEMITTER_H
