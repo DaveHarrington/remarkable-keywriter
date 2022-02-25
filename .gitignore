@@ -1,0 +1,11 @@
+install-toolchain.sh
+*.o
+out/
+moc_*
+*.swp
+Makefile
+edit
+go*
+go/
+.qmake.stash
+qrc_qml.cpp
