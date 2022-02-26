@@ -7,21 +7,21 @@
 #include <QtQuick>
 
 struct keyobj {
-	Qt::Key key;
-	Qt::KeyboardModifier modifier;
-	QString repr;
+  Qt::Key key;
+  QFlags<Qt::KeyboardModifier> modifier;
+  QString repr;
 } ;
 
 class KeyEmitter : public QObject
 {
-    Q_OBJECT
-public:
+  Q_OBJECT
+  public:
     explicit KeyEmitter(QObject* parent = 0);
-public slots:
-    void keyPressed(QVariant keystring);
-private:
-	void initKeyMap();
+    public slots:
+      void keyPressed(QVariant keystring);
+  private:
+    void initKeyMap();
 
-	QMap<QString, keyobj> keymap;
+    QMap<QString, keyobj> keymap;
 };
 #endif // KEYEMITTER_H
